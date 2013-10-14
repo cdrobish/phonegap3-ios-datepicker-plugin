@@ -52,6 +52,9 @@
 }
 
 - (void)hide {
+    NSTimeInterval seconds = [self.datePicker.date timeIntervalSince1970];
+    NSString* jsCallback = [NSString stringWithFormat:@"datePicker._hide(\"%f\");", seconds];
+    [super writeJavascript:jsCallback];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [self.datePickerSheet dismissWithClickedButtonIndex:0 animated:YES];
     } else {

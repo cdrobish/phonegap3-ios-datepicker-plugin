@@ -15,7 +15,8 @@ var exec = require('cordova/exec');
  * Constructor
  */
 function DatePicker() {
-    this._callback;
+    this._onChange;
+    this._onClose;
 }
 
 /**
@@ -23,8 +24,8 @@ function DatePicker() {
  */
 DatePicker.prototype.show = function(options, onChange, onClose) {
 
-    this.onChange = onChange;
-    this.onClose = onClose;
+    this._onChange = onChange;
+    this._onClose = onClose;
 
     var padDate = function(date) {
       if (date.length == 1) {
@@ -91,15 +92,15 @@ DatePicker.prototype.show = function(options, onChange, onClose) {
 
 DatePicker.prototype._dateSelected = function(date) {
     var d = new Date(parseFloat(date) * 1000);
-    if (this.onChange)
-        this.onChange(d);
+    if (this._onChange)
+        this._onChange(d);
 }
 
 DatePicker.prototype._hide = function(date) {
     var d = new Date(parseFloat(date) * 1000);
-    if (this.onClose)
-        this.onClose(d);
+    if (this._onClose)
+        this._onClose(d);
 }
 
 var datePicker = new DatePicker();
-module.exports = datePicker
+module.exports = datePicker;
